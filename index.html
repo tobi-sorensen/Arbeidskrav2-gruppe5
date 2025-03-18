@@ -1,0 +1,30 @@
+<!-- Henter karakterer fra API-et -->
+
+async function fetCharacters() {
+    try {
+        const response = await fetch ('https://swapi.dev/api/people/');
+    if (response.ok) {
+        throw new Error('HTTP-FEIL! Status: ' + response.status);
+    }
+    const data = await response.json();
+    return data.results;
+    } catch (error) {
+        console.error ('Feil ved henting av karakterer', error);
+        return [];
+    }
+}
+
+<!-- // Henter species fra API-et ( Her er koden delvis blitt kopiert av min kode ovenfor som forslag av copilot og tabbet inn) -->
+async function getSpecies(url)   
+try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('HTTP-FEIL! Status: ' + response.status);
+        }
+        const data = await response.json();
+        return data.name;
+    } catch (error) {
+        console.error('Feil ved henting av species', error);
+        return 'Ukjent';
+ }
+}
