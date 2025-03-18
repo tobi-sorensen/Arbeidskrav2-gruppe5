@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Star Wars karakterer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Star Wars Universet</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Hjem</a></li>
+          <li><a href="characters.html" class="active">Karakterer</a></li>
+          <li><a href="vehicles.html">Kjøretøy</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Star Wars karakterer</h2>
+      <p>Her finner du en oversikt over karakterene fra Star Wars Universet.</p>
+
+      <label for="speciesFilter!">Filtrer etter species:</label>
+      <select id="speciesFilter">
+        <option value="all">Alle</option>
+      </select>
+
+      <div id="charactersContainer"></div>
+
+      <h2>Velg en ny karakter</h2>
+      <form id="CharacterForm">
+        <label for="name">Navn:</label>
+        <input type="text" id="name" required />
+
+        <label for="birthYear">Fødselsår:</label>
+        <input type="text" id="birthYear" required />
+
+        <label for="species">Species:</label>
+        <input type="text" id="species" required />
+
+        <button type="button" onclick="createCharacter()">Velg karakter</button>
+      </form>
+    </main>
+
+    <footer>
+      <p>© 2025 Star Wars Universet - Gruppeprosjekt</p>
+    </footer>
+
+    <script src="characters.js"></script>
+  </body>
+</html>
