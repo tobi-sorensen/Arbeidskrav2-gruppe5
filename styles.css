@@ -1,0 +1,46 @@
+/* Generell stil */
+
+body {
+  background-image: url("pexels-apasaric-1694000.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  margin: 0;
+}
+
+/* Navigasjon */
+
+header {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+ font-size: 24px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 20px;
+}
+
+nav a {
+  color: yellow;
+  text-decoration: none;
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+/* Markerer aktiv side */
+.active {
+  font-weight: bold;
+  text-decoration: underline;
+  color: yellow;
+}
+
+/* Hovedinnhold */
