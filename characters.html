@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/Styles/styles.css" />
   </head>
   <body>
-    <header>
+    <header id="header">
       <h1>Star Wars Universet</h1>
       <nav>
         <ul>
@@ -19,6 +19,7 @@
     </header>
 
     <main>
+      <div id="characterFilter">
       <h2>Star Wars karakterer</h2>
       <p>Her finner du en oversikt over karakterene fra Star Wars Universet.</p>
 
@@ -26,9 +27,11 @@
       <select id="speciesFilter">
         <option value="all">Alle</option>
       </select>
+    </div>
 
       <div id="charactersContainer"></div>
-
+      
+      <div id="chooseCharacter">
       <h2>Velg en ny karakter</h2>
       <form id="CharacterForm">
         <label for="name">Navn:</label>
@@ -42,6 +45,7 @@
 
         <button type="button" onclick="createCharacter()">Velg karakter</button>
       </form>
+    </div>
     </main>
 
     <footer>
