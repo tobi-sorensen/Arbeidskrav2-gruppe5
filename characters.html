@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Star Wars karakterer</title>
-    <link rel="stylesheet" href="/Styles/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header id="header">
       <h1>Star Wars Universet</h1>
+      <p id="creditDisplay">Credits: 0</p>
       <nav>
         <ul>
           <li><a href="index.html">Hjem</a></li>
@@ -19,39 +20,46 @@
     </header>
 
     <main>
-      <div id="characterFilter">
-      <h2>Star Wars karakterer</h2>
-      <p>Her finner du en oversikt over karakterene fra Star Wars Universet.</p>
+      <div id="chooseCharacter">
+        <h2>Velg en ny karakter</h2>
+        <form id="CharacterForm">
+          <label for="name">Navn:</label>
+          <input type="text" id="name" required />
 
-      <label for="speciesFilter!">Filtrer etter species:</label>
-      <select id="speciesFilter">
-        <option value="all">Alle</option>
-      </select>
-    </div>
+          <label for="birthYear">Fødselsår:</label>
+          <input type="text" id="birthYear" required />
+
+          <label for="species">Species:</label>
+          <input type="text" id="species" required />
+
+          <button type="button" onclick="createCharacter()">
+            Lag karakter
+          </button>
+        </form>
+      </div>
+
+      <div id="characterFilter">
+        <h2>Star Wars karakterer</h2>
+        <p>
+          Her finner du en oversikt over karakterene fra Star Wars Universet.
+        </p>
+
+        <label for="speciesFilter">Filtrer etter species:</label>
+        <select id="speciesFilter">
+          <option value="all">Alle</option>
+        </select>
+      </div>
 
       <div id="charactersContainer"></div>
-      
-      <div id="chooseCharacter">
-      <h2>Velg en ny karakter</h2>
-      <form id="CharacterForm">
-        <label for="name">Navn:</label>
-        <input type="text" id="name" required />
-
-        <label for="birthYear">Fødselsår:</label>
-        <input type="text" id="birthYear" required />
-
-        <label for="species">Species:</label>
-        <input type="text" id="species" required />
-
-        <button type="button" onclick="createCharacter()">Velg karakter</button>
-      </form>
-    </div>
+      <div id="pagination"></div>
     </main>
 
     <footer>
-      <p>© 2025 Star Wars Universet - Gruppeprosjekt</p>
+      <p>© 2025 Star Wars Universet - Gruppeprosjekt G5</p>
     </footer>
 
+    <script src="apilocalcrud.js"></script>
     <script src="characters.js"></script>
+    <script src="easteregg.js"></script>
   </body>
 </html>
