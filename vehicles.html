@@ -3,30 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Star Wars karakterer</title>
-    <link rel="stylesheet" href="/Styles/styles.css" />
+    <title>Star Wars Kjøretøy</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <h1>Star Wars Universet</h1>
+    <header id="header">
+      <h1>Star Wars Kjøretøy</h1>
+      <p id="creditDisplay">Credits: 0</p>
       <nav>
         <ul>
           <li><a href="index.html">Hjem</a></li>
-          <li><a href="characters.html" class="active">Karakterer</a></li>
-          <li><a href="vehicles.html">Kjøretøy</a></li>
+          <li><a href="characters.html">Karakterer</a></li>
+          <li><a href="vehicles.html" class="active">Kjøretøy</a></li>
         </ul>
       </nav>
     </header>
 
     <main>
-      <h2>Star Wars Kjøretøy</h2>
-      <p>Her finner du en oversikt over kjøretøyene fra Star Wars Universet.</p>
+      <div id="creditSection">
+      </div>
+
+      <div id="availableVehiclesSection">
+        <h2>Tilgjengelige Kjøretøy</h2>
+        <div id="vehiclesContainer" class="vehicle-grid"></div>
+        <div id="vehiclePagination">
+          <button id="prevVehiclesBtn">← Forrige</button>
+          <span id="vehiclePageInfo">Side 1</span>
+          <button id="nextVehiclesBtn">Neste →</button>
+        </div>
+      </div>
+
+      <div id="ownedVehiclesSection">
+        <h2>Dine Kjøretøy</h2>
+        <div id="ownedVehiclesContainer" class="vehicle-grid"></div>
+      </div>
     </main>
 
     <footer>
-      <p>© 2025 Star Wars Universet - Gruppeprosjekt</p>
+      <p>© 2025 Star Wars Universet - Gruppeprosjekt G5</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="easteregg.js"></script>
+    <script src="apilocalcrud.js"></script>
     <script src="vehicles.js"></script>
   </body>
 </html>
