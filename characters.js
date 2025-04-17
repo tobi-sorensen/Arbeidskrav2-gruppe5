@@ -56,7 +56,7 @@ function capitalizeFirstLetter(text) {
 
 //  Henter filmdata fra API og lagrer i localstorage
 async function fetchAllFilms() {
-  const response = await fetch("https://swapi.dev/api/films/");
+  const response = await fetch("https://swapi.info/api/films/"); // Endret til swapi.info for å unngå mer problematikk da swapi.dev er nede
   const data = await response.json();
   const map = {};
   data.results.forEach((film) => {
@@ -72,8 +72,8 @@ async function fetchAllFilms() {
 function populateSpeciesDropdownFromMap(speciesMap) {
   const select = document.getElementById("speciesFilter");
   select.innerHTML = '<option value="all">Alle</option>';
-
   const added = new Set();
+  
   Object.values(speciesMap).forEach((speciesName) => {
     const normalized = capitalizeFirstLetter(speciesName);
     if (!added.has(normalized)) {
@@ -112,7 +112,7 @@ async function initCharacters() {
   }
 
   if (characters.length === 0) {
-    const apiData = await fetchAllData("https://swapi.dev/api/people/");
+    const apiData = await fetchAllData("https://swapi.info/api/people/");
     characters = apiData.map((person) => {
       // Overstyrer filtrerings problematikk fra API
       let resolvedSpecies;
@@ -165,26 +165,36 @@ function createCharacter() {
   }
 
   const newCharacter = { name, birthYear, species, films: [] };
-  createItem("characters", newCharacter);
-  document.getElementById("CharacterForm").reset();
-  displayCharacters(getFromLocalStorage("characters"));
+  createItem("characters", newCharacter, API_URLS.character).then(() => {
+    // Sender til API og oppdattere localStorage med _id
+    document.getElementById("CharacterForm").reset();
+    displayCharacters(getFromLocalStorage("characters"));
+  });
 }
+
 // Redigerer karakter
-function editCharacter(name) {
+function editCharacter(id) {
   const characters = getFromLocalStorage("characters");
-  const character = characters.find((c) => c.name === name);
+  const character = characters.find((c) => c._id === id);
   const newSpeciesInput = prompt("Endre species til:", character.species);
 
   if (newSpeciesInput) {
     const newSpecies = capitalizeFirstLetter(newSpeciesInput);
-    editItem("characters", name, { species: newSpecies });
-    displayCharacters(getFromLocalStorage("characters"));
+    const updatedCharacter = { ...character, species: newSpecies };
+
+    editItem("characters", id, updatedCharacter, API_URLS.character).then(
+      () => {
+        displayCharacters(getFromLocalStorage("characters"));
+      }
+    );
   }
 }
+
 // Sletter karakter
-function deleteCharacter(name) {
-  deleteItem("characters", name);
-  displayCharacters(getFromLocalStorage("characters"));
+function deleteCharacter(id) {
+  deleteItem("characters", id, API_URLS.character).then(() => {
+    displayCharacters(getFromLocalStorage("characters"));
+  });
 }
 
 function createCharacterCard(character) {
@@ -205,8 +215,8 @@ function createCharacterCard(character) {
     <p>Species: ${character.species}</p>
     <p>Filmer:</p>
     ${filmList}
-    <button onclick="editCharacter('${character.name}')">Rediger</button>
-    <button onclick="deleteCharacter('${character.name}')">Slett</button>
+    <button onclick="editCharacter('${character._id}')">Rediger</button>
+    <button onclick="deleteCharacter('${character._id}')">Slett</button>
   `;
   return card;
 }

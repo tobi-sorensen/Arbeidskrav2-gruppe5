@@ -16,7 +16,7 @@ async function fetchAllData(apiUrl) {
       nextUrl = data.next; // Neste side
     }
   } catch (error) {
-    console.error("API-feil:", error);
+    console.error("Klarte ikke hente data fra API. Sjekk tilkoblingen.", error);
   }
 
   return results;
@@ -33,35 +33,49 @@ function getFromLocalStorage(key) {
 }
 
 // Oppretter et nytt element (brukes for karakter og kjøretøy)
-function createItem(key, newItem) {
-  const items = getFromLocalStorage(key);
-  items.push(newItem);
-  saveToLocalStorage(key, items);
-  return items;
-}
-
-// Sletter et element basert på navn
-function deleteItem(key, name) {
-  let items = getFromLocalStorage(key);
-  items = items.filter((item) => item.name !== name);
-  saveToLocalStorage(key, items);
-  return items;
+async function createItem(key, newItem, apiUrl) {
+  try {
+    const response = await axios.post(apiUrl, newItem);
+    console.log(`Ny ${key}-oppføring er lagt til!`);
+    const updated = [...getFromLocalStorage(key), response.data];
+    saveToLocalStorage(key, updated);
+    return response.data;
+  } catch (error) {
+    console.error(`Klarte ikke å lagre ${key}. Noe gikk galt.`);
+  }
 }
 
 // Redigerer et element
-function editItem(key, name, updatedFields) {
-  let items = getFromLocalStorage(key);
-  const index = items.findIndex((item) => item.name === name);
-  if (index !== -1) {
-    items[index] = { ...items[index], ...updatedFields };
-    saveToLocalStorage(key, items);
+async function editItem(key, id, updatedItem, apiUrl) {
+  try{
+    await axios.put(`${apiUrl}/${id}`, updatedItem);
+    console.log(`${key} ble redigert og oppdatert.`);
+    const updated = getFromLocalStorage(key).map((item) =>
+      item._id === id ? updatedItem : item
+    );
+    saveToLocalStorage(key, updated);
+  } catch (error) {
+    console.error(`Redigering av ${key} feilet.`);
   }
-  return items;
 }
+ 
+
+// Sletter et element basert på navn
+async function deleteItem(key, id, apiUrl) {
+  try {
+    await axios.delete(`${apiUrl}/${id}`);
+    console.log(`${key} er slettet.`);
+    const filtered = getFromLocalStorage(key).filter((item) => item._id !== id);
+    saveToLocalStorage(key, filtered);
+  } catch (error) {
+    console.error(`Klarte ikke å slette ${key}. Noe gikk galt.`);
+  }
+}
+
 
 // Kun for karakterer: henter og lagrer species
 async function fetchAllSpecies() {
-  const speciesList = await fetchAllData("https://swapi.dev/api/species/");
+  const speciesList = await fetchAllData("https://swapi.info/api/species/");
   const speciesMap = {};
   speciesList.forEach((species) => {
     speciesMap[species.url] = species.name;
