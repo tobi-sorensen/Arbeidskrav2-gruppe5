@@ -112,7 +112,7 @@ async function initCharacters() {
   }
 
   if (characters.length === 0) {
-    const apiData = await fetchAllData("https://swapi.dev/api/people/");
+    const apiData = await fetchAllData("https://swapi.info/api/people/");
     characters = apiData.map((person) => {
       // Overstyrer filtrerings problematikk fra API
       let resolvedSpecies;
