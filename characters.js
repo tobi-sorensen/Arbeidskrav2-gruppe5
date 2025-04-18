@@ -19,7 +19,7 @@ async function fetchAllFilms() {
     const url = film.url.endsWith("/") ? film.url.slice(0, -1) : film.url;
     map[url] = film.title;
   });
-  saveToLocalStorage("films", map);
+  saveToLocalStorageAndApi("films", map);
   console.log("Filmtitler lagret:", map);
   return map;
 }
@@ -96,7 +96,7 @@ async function initCharacters() {
         films: filmTitles,
       };
     });
-    saveToLocalStorage("characters", characters);
+    saveToLocalStorageAndApi("characters", characters);
   }
 
   populateSpeciesDropdownFromMap(speciesMap);
