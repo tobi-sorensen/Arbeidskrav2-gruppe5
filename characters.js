@@ -4,50 +4,6 @@ console.log("characters.js er lastet!");
 let currentPage = 1;
 const itemsPerPage = 6;
 
-// Kort farger for species
-function getSpeciesColor(species) {
-  const colors = {
-    Human: "#5e4da1",
-    Droid: "#676565",
-    Wookie: "#3b1e00",
-    Rodian: "#5c5f2b",
-    Hutt: "#494024",
-    "Yoda's species": "#254713",
-    Trandoshan: "#a25f00",
-    "Mon Calamari": "#f47858",
-    Ewok: "#2e1005",
-    Sullustan: "#a9718e",
-    Neimoidian: "#abad85",
-    Gungan: "#8d6a00",
-    Toydarian: "#4a696a",
-    Dug: "#6e6262",
-    "Twi'lek": "#347472",
-    Aleena: "#3e5467",
-    Vulptereen: "#6e695e",
-    Xexto: "#69607f",
-    Toong: "#6c6e37",
-    Cerean: "#826852",
-    Nautolan: "#18614e",
-    Zabrak: "#441300",
-    Tholothian: "#6d667f",
-    Iktotchi: "#da6819",
-    Quermian: "#484c46",
-    "Kel Dor": "#ffc055",
-    Chagrian: "#177ac5",
-    Geonosian: "#413920",
-    Mirialan: "#746127",
-    Clawdite: "#328a60",
-    Besalisk: "#8f6352",
-    Kaminoan: "#405b74",
-    Skakoan: "#2c7f08",
-    Muun: "#8a6f7c",
-    Togruta: "#b5730c",
-    Kaleesh: "#b0443e",
-    "Pau'an": "#9a614c",
-    Unknown: "#251b39",
-  };
-  return colors[species] || "#444";
-}
 
 // Fjerner sensitivitet til store/små bokstaver når man lager karakter
 function capitalizeFirstLetter(text) {
@@ -56,7 +12,7 @@ function capitalizeFirstLetter(text) {
 
 //  Henter filmdata fra API og lagrer i localstorage
 async function fetchAllFilms() {
-  const response = await fetch("https://swapi.dev/api/films/");
+  const response = await fetch("https://swapi.info/api/films/"); // Endret til swapi.info for å unngå mer problematikk da swapi.dev er nede
   const data = await response.json();
   const map = {};
   data.results.forEach((film) => {
@@ -72,8 +28,8 @@ async function fetchAllFilms() {
 function populateSpeciesDropdownFromMap(speciesMap) {
   const select = document.getElementById("speciesFilter");
   select.innerHTML = '<option value="all">Alle</option>';
-
   const added = new Set();
+  
   Object.values(speciesMap).forEach((speciesName) => {
     const normalized = capitalizeFirstLetter(speciesName);
     if (!added.has(normalized)) {
@@ -112,7 +68,7 @@ async function initCharacters() {
   }
 
   if (characters.length === 0) {
-    const apiData = await fetchAllData("https://swapi.dev/api/people/");
+    const apiData = await fetchAllData("https://swapi.info/api/people/");
     characters = apiData.map((person) => {
       // Overstyrer filtrerings problematikk fra API
       let resolvedSpecies;
@@ -165,26 +121,36 @@ function createCharacter() {
   }
 
   const newCharacter = { name, birthYear, species, films: [] };
-  createItem("characters", newCharacter);
-  document.getElementById("CharacterForm").reset();
-  displayCharacters(getFromLocalStorage("characters"));
+  createItem("characters", newCharacter, API_URLS.character).then(() => {
+    // Sender til API og oppdattere localStorage med _id
+    document.getElementById("CharacterForm").reset();
+    displayCharacters(getFromLocalStorage("characters"));
+  });
 }
+
 // Redigerer karakter
-function editCharacter(name) {
+function editCharacter(id) {
   const characters = getFromLocalStorage("characters");
-  const character = characters.find((c) => c.name === name);
+  const character = characters.find((c) => c._id === id);
   const newSpeciesInput = prompt("Endre species til:", character.species);
 
   if (newSpeciesInput) {
     const newSpecies = capitalizeFirstLetter(newSpeciesInput);
-    editItem("characters", name, { species: newSpecies });
-    displayCharacters(getFromLocalStorage("characters"));
+    const updatedCharacter = { ...character, species: newSpecies };
+
+    editItem("characters", id, updatedCharacter, API_URLS.character).then(
+      () => {
+        displayCharacters(getFromLocalStorage("characters"));
+      }
+    );
   }
 }
+
 // Sletter karakter
-function deleteCharacter(name) {
-  deleteItem("characters", name);
-  displayCharacters(getFromLocalStorage("characters"));
+function deleteCharacter(id) {
+  deleteItem("characters", id, API_URLS.character).then(() => {
+    displayCharacters(getFromLocalStorage("characters"));
+  });
 }
 
 function createCharacterCard(character) {
@@ -205,8 +171,8 @@ function createCharacterCard(character) {
     <p>Species: ${character.species}</p>
     <p>Filmer:</p>
     ${filmList}
-    <button onclick="editCharacter('${character.name}')">Rediger</button>
-    <button onclick="deleteCharacter('${character.name}')">Slett</button>
+    <button onclick="editCharacter('${character._id}')">Rediger</button>
+    <button onclick="deleteCharacter('${character._id}')">Slett</button>
   `;
   return card;
 }

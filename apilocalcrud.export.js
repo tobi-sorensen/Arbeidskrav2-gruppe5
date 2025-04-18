@@ -61,7 +61,7 @@ function editItem(key, name, updatedFields) {
 
 // Kun for karakterer: henter og lagrer species
 async function fetchAllSpecies() {
-  const speciesList = await fetchAllData("https://swapi.dev/api/species/");
+  const speciesList = await fetchAllData("https://swapi.info/api/species/");
   const speciesMap = {};
   speciesList.forEach((species) => {
     speciesMap[species.url] = species.name;
