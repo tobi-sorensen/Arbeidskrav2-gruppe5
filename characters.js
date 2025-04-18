@@ -4,50 +4,6 @@ console.log("characters.js er lastet!");
 let currentPage = 1;
 const itemsPerPage = 6;
 
-// Kort farger for species
-function getSpeciesColor(species) {
-  const colors = {
-    Human: "#5e4da1",
-    Droid: "#676565",
-    Wookie: "#3b1e00",
-    Rodian: "#5c5f2b",
-    Hutt: "#494024",
-    "Yoda's species": "#254713",
-    Trandoshan: "#a25f00",
-    "Mon Calamari": "#f47858",
-    Ewok: "#2e1005",
-    Sullustan: "#a9718e",
-    Neimoidian: "#abad85",
-    Gungan: "#8d6a00",
-    Toydarian: "#4a696a",
-    Dug: "#6e6262",
-    "Twi'lek": "#347472",
-    Aleena: "#3e5467",
-    Vulptereen: "#6e695e",
-    Xexto: "#69607f",
-    Toong: "#6c6e37",
-    Cerean: "#826852",
-    Nautolan: "#18614e",
-    Zabrak: "#441300",
-    Tholothian: "#6d667f",
-    Iktotchi: "#da6819",
-    Quermian: "#484c46",
-    "Kel Dor": "#ffc055",
-    Chagrian: "#177ac5",
-    Geonosian: "#413920",
-    Mirialan: "#746127",
-    Clawdite: "#328a60",
-    Besalisk: "#8f6352",
-    Kaminoan: "#405b74",
-    Skakoan: "#2c7f08",
-    Muun: "#8a6f7c",
-    Togruta: "#b5730c",
-    Kaleesh: "#b0443e",
-    "Pau'an": "#9a614c",
-    Unknown: "#251b39",
-  };
-  return colors[species] || "#444";
-}
 
 // Fjerner sensitivitet til store/små bokstaver når man lager karakter
 function capitalizeFirstLetter(text) {
