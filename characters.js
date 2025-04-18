@@ -12,16 +12,16 @@ function capitalizeFirstLetter(text) {
 
 //  Henter filmdata fra API og lagrer i localstorage
 async function fetchAllFilms() {
-  const response = await fetch("https://swapi.info/api/films/"); // Endret til swapi.info for å unngå mer problematikk da swapi.dev er nede
-  const data = await response.json();
-  const map = {};
-  data.results.forEach((film) => {
+  const films = await fetchAllData("https://swapi.info/api/films");
+  const filmMap = {};
+
+  films.forEach((film) => {
     const url = film.url.endsWith("/") ? film.url.slice(0, -1) : film.url;
-    map[url] = film.title;
+    filmMap[url] = film.title;
   });
-  saveToLocalStorageAndApi("films", map);
-  console.log("Filmtitler lagret:", map);
-  return map;
+
+  saveToLocalStorage("films", filmMap);
+  return filmMap;
 }
 
 // Meny for filterering av species
@@ -60,19 +60,24 @@ async function initCharacters() {
   let speciesMap = getFromLocalStorage("species");
   let filmMap = getFromLocalStorage("films");
 
+  // Hent species hvis ikke lagret
   if (!speciesMap || Object.keys(speciesMap).length === 0) {
     speciesMap = await fetchAllSpecies();
   }
+
+  // Hent filmer hvis ikke lagret
   if (!filmMap || Object.keys(filmMap).length === 0) {
     filmMap = await fetchAllFilms();
   }
 
-  if (characters.length === 0) {
-    const apiData = await fetchAllData("https://swapi.info/api/people/");
+  // Hent karakterer hvis ikke lagret
+  if (!characters || characters.length === 0) {
+    const apiData = await fetchAllData("https://swapi.info/api/people");
+
     characters = apiData.map((person) => {
-      // Overstyrer filtrerings problematikk fra API
       let resolvedSpecies;
 
+      // Manuell tilpasning for manglende data
       if (person.name === "R4-P17") {
         resolvedSpecies = "Droid";
       } else {
@@ -82,8 +87,7 @@ async function initCharacters() {
           resolvedSpecies = "Human";
         }
       }
-
-      //Film titler
+  // Filmtitler
       const filmTitles = person.films.map((url) => {
         const cleanUrl = url.endsWith("/") ? url.slice(0, -1) : url;
         return filmMap[cleanUrl] || "Ukjent film";
@@ -96,12 +100,14 @@ async function initCharacters() {
         films: filmTitles,
       };
     });
-    saveToLocalStorageAndApi("characters", characters);
+
+    saveToLocalStorage("characters", characters);
   }
 
   populateSpeciesDropdownFromMap(speciesMap);
   displayCharacters(characters);
 }
+
 // Lager ny karakter
 function createCharacter() {
   const name = document.getElementById("name").value.trim();
@@ -123,7 +129,7 @@ function createCharacter() {
   const newCharacter = { name, birthYear, species, films: [] };
   createItem("characters", newCharacter, API_URLS.character).then(() => {
     // Sender til API og oppdattere localStorage med _id
-    document.getElementById("CharacterForm").reset();
+    document.getElementById("characterForm").reset();
     displayCharacters(getFromLocalStorage("characters"));
   });
 }
@@ -147,35 +153,37 @@ function editCharacter(id) {
 }
 
 // Sletter karakter
-function deleteCharacter(id) {
-  deleteItem("characters", id, API_URLS.character).then(() => {
-    displayCharacters(getFromLocalStorage("characters"));
-  });
-}
-
 function createCharacterCard(character) {
   const card = document.createElement("div");
   card.classList.add("characterCard");
-  card.style.backgroundColor = getSpeciesColor(character.species);
 
+  // Gjør species klar som CSS-klasse
+  const speciesClass = character.species.toLowerCase().replace(/\s/g, "-");
+  card.classList.add(speciesClass); // f.eks. "human", "droid", "yodas-species"
+
+  // Lag film-liste
   const filmList = character.films?.length
     ? `<div class="filmTags">${character.films
         .map((f) => `<span class="filmTag">${f}</span>`)
         .join("")}</div>`
     : "<p><em>Ingen filmer</em></p>";
 
+  // Lag kortinnhold
   card.innerHTML = `
-   <div class="cardText">
-    <h3>${character.name}</h3>
-    <p>Fødselsår: ${character.birthYear}</p>
-    <p>Species: ${character.species}</p>
-    <p>Filmer:</p>
-    ${filmList}
-    <button onclick="editCharacter('${character._id}')">Rediger</button>
-    <button onclick="deleteCharacter('${character._id}')">Slett</button>
+    <div class="cardText">
+      <h3>${character.name}</h3>
+      <p>Fødselsår: ${character.birthYear}</p>
+      <p>Species: ${character.species}</p>
+      <p>Filmer:</p>
+      ${filmList}
+      <button onclick="editCharacter('${character._id}')">Rediger</button>
+      <button onclick="deleteCharacter('${character._id}')">Slett</button>
+    </div>
   `;
+
   return card;
 }
+
 
 function displayCharacters(characters) {
   const container = document.getElementById("charactersContainer");
