@@ -23,7 +23,7 @@ document.addEventListener("keydown", (e) => {
 
       // Henter creditbeholdning og legger til easter egg bonus
       let currentCredits = parseInt(localStorage.getItem("credits")) || 0;
-      currentCredits += 100000;
+      currentCredits += 70000;
       localStorage.setItem("credits", currentCredits);
 
       // Oppdaterer credits så det samhandler med alerten
