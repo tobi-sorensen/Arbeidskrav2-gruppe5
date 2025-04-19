@@ -326,7 +326,7 @@ function createCharacterCard(character) {
   }
 
   const buttonContainer = document.createElement("div");
-  buttonContainer.classList.add("cardButtons"); // du kan bruke denne klassen i CSS om du vil
+  buttonContainer.classList.add("cardButtons"); 
 
   const editBtn = document.createElement("button");
   editBtn.textContent = "Rediger";
