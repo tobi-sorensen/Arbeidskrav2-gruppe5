@@ -94,27 +94,6 @@ input[type="text"] {
   font-size: 14px;
 }
 
-/* Karakter og kjøretøy kort */
-
-.characterCard {
-  background-color: #444; /* Standardfarge */
-  border: 2px solid rgb(190, 204, 1);
-  padding: 15px;
-  margin: 10px;
-  display: inline-block;
-  vertical-align: top;
-  height: 380px;
-  width: 250px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  transition: 0.3s;
-
-  display: flex;
-flex-direction: column;
-justify-content: space-between;
-
-}
-
 .characterCard.human { background-color: #12005c; }
 .characterCard.droid { background-color: #676565; }
 .characterCard.wookie { background-color: #3b1e00; }
@@ -154,7 +133,7 @@ justify-content: space-between;
 .characterCard.pau-an { background-color: #9a614c; }
 .characterCard.unknown { background-color: #251b39; }
 
-
+/* Karakter og kjøretøy kort */
 .characterCard,
 .vehicleCard {
   background-color: rgba(0, 0, 0, 0.7);
