@@ -1,34 +1,13 @@
-//  Henter alle data fra API swapi.info 
-async function fetchAllData(apiUrl) {
-  try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`Feil ved henting: ${response.status}`);
-    }
+// Base crudcrud-url
+const API_BASE_URL = "https://crudcrud.com/api/f01958ae00fe4c82b4fc62eedcd056b4";
 
-    const data = await response.json();
+const API_URLS = {
+  character: `${API_BASE_URL}/characters`,
+  vehicle: `${API_BASE_URL}/vehicles`,
+  credits: `${API_BASE_URL}/credits`,
+};
 
-    if (!Array.isArray(data)) {
-      throw new Error("Ugyldig respons – forventet en array.");
-    }
-
-    return data;
-  } catch (error) {
-    console.error("Klarte ikke hente data fra API. Sjekk tilkoblingen.", error);
-    return [];
-  }
-}
-
-// LocalStorage funksjoner 
-function saveToLocalStorage(key, data) {
-  localStorage.setItem(key, JSON.stringify(data));
-}
-
-function getFromLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key)) || [];
-}
-
-//  Opprett ny karakter eller kjøretøy 
+// Lager nytt objekt i crudcrud og localStorage
 async function createItem(key, newItem, apiUrl) {
   try {
     const response = await fetch(apiUrl, {
@@ -42,7 +21,7 @@ async function createItem(key, newItem, apiUrl) {
     }
 
     const data = await response.json();
-    console.log(`Ny ${key}-oppføring lagt til!`);
+    console.log(`Ny ${key}-oppføring lagt til:`, data);
 
     const updated = [...getFromLocalStorage(key), data];
     saveToLocalStorage(key, updated);
@@ -52,7 +31,7 @@ async function createItem(key, newItem, apiUrl) {
   }
 }
 
-//  Redigere eksisterende element 
+// Redigerer eksisterende element
 async function editItem(key, id, updatedItem, apiUrl) {
   try {
     const response = await fetch(`${apiUrl}/${id}`, {
@@ -77,7 +56,7 @@ async function editItem(key, id, updatedItem, apiUrl) {
   }
 }
 
-// Slette eksisterended element 
+// Sletter eksisterende element
 async function deleteItem(key, id, apiUrl) {
   try {
     const response = await fetch(`${apiUrl}/${id}`, {
@@ -97,7 +76,38 @@ async function deleteItem(key, id, apiUrl) {
   }
 }
 
-//  Karakter: hent og lagre species 
+// Henter alle data fra SWAPI (må være array)
+async function fetchAllData(apiUrl) {
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error(`Feil ved henting: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!Array.isArray(data)) {
+      throw new Error("Ugyldig respons – forventet en array.");
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Klarte ikke hente data fra API. Sjekk tilkoblingen.", error);
+    return [];
+  }
+}
+
+// Leser fra localStorage
+function getFromLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key)) || [];
+}
+
+// Skriver til localStorage
+function saveToLocalStorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+// Henter og lagrer species fra SWAPI
 async function fetchAllSpecies() {
   const speciesList = await fetchAllData("https://swapi.info/api/species");
   const speciesMap = {};
@@ -110,12 +120,3 @@ async function fetchAllSpecies() {
   saveToLocalStorage("species", speciesMap);
   return speciesMap;
 }
-
-//  Eksporter globale funksjoner 
-window.fetchAllData = fetchAllData;
-window.saveToLocalStorage = saveToLocalStorage;
-window.getFromLocalStorage = getFromLocalStorage;
-window.createItem = createItem;
-window.deleteItem = deleteItem;
-window.editItem = editItem;
-window.fetchAllSpecies = fetchAllSpecies;
