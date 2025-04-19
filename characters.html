@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Star Wars karakterer</title>
+    <link rel="icon" type="image/webp" href="Assets/sw-g5-favi-generated-jsapi2.webp" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -31,9 +32,7 @@
           <label for="species">Species:</label>
           <input type="text" id="species" required />
 
-          <button type="button" onclick="createCharacter()">
-            Lag karakter
-          </button>
+          <button type="button" id="createCharacterBtn">Lag karakter</button>
         </form>
       </div>
 
@@ -59,5 +58,7 @@
 
     <script src="apilocalcrud.js"></script>
     <script src="characters.js"></script>
+    <script src="easteregg.js"></script>
+
   </body>
 </html>

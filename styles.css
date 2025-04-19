@@ -94,23 +94,7 @@ input[type="text"] {
   font-size: 14px;
 }
 
-/* Karakter og kjøretøy kort */
-
-.characterCard {
-  background-color: #444; /* Standardfarge */
-  border: 2px solid rgb(190, 204, 1);
-  padding: 15px;
-  margin: 10px;
-  display: inline-block;
-  vertical-align: top;
-  height: 380px;
-  width: 250px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  transition: 0.3s;
-}
-
-.characterCard.human { background-color: #5e4da1; }
+.characterCard.human { background-color: #12005c; }
 .characterCard.droid { background-color: #676565; }
 .characterCard.wookie { background-color: #3b1e00; }
 .characterCard.rodian { background-color: #5c5f2b; }
@@ -120,11 +104,11 @@ input[type="text"] {
 .characterCard.mon-calamari { background-color: #f47858; }
 .characterCard.ewok { background-color: #2e1005; }
 .characterCard.sullustan { background-color: #a9718e; }
-.characterCard.neimoidian { background-color: #abad85; }
+.characterCard.neimodian { background-color: #abad85; }
 .characterCard.gungan { background-color: #8d6a00; }
 .characterCard.toydarian { background-color: #4a696a; }
 .characterCard.dug { background-color: #6e6262; }
-.characterCard.twi-lek { background-color: #347472; }
+.characterCard.twi-lek { background-color: #244d4b; }
 .characterCard.aleena { background-color: #3e5467; }
 .characterCard.vulptereen { background-color: #6e695e; }
 .characterCard.xexto { background-color: #69607f; }
@@ -135,7 +119,7 @@ input[type="text"] {
 .characterCard.tholothian { background-color: #6d667f; }
 .characterCard.iktotchi { background-color: #da6819; }
 .characterCard.quermian { background-color: #484c46; }
-.characterCard.kel-dor { background-color: #ffc055; }
+.characterCard.kel-dor { background-color: #9e752f; }
 .characterCard.chagrian { background-color: #177ac5; }
 .characterCard.geonosian { background-color: #413920; }
 .characterCard.mirialan { background-color: #746127; }
@@ -149,7 +133,7 @@ input[type="text"] {
 .characterCard.pau-an { background-color: #9a614c; }
 .characterCard.unknown { background-color: #251b39; }
 
-
+/* Karakter og kjøretøy kort */
 .characterCard,
 .vehicleCard {
   background-color: rgba(0, 0, 0, 0.7);
@@ -171,6 +155,16 @@ input[type="text"] {
   font-family: "Arial", sans-serif;
   font-size: 15px;
   line-height: 1.4;
+}
+.cardButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* juster avstanden mellom knappene */
+  margin-top: 10px; /* hvis du vil ha litt luft over knappene */
+}
+
+.cardButtons button {
+  margin-top: 0; /* fjern ekstra mellomrom kun for knapper i kort */
 }
 
 /* Hover effekt på kortene */
