@@ -9,7 +9,7 @@ h1 {
   font-family: "Starjhol", sans-serif;
 }
 
-/* Stil spesifikt for tittel overskrift  */
+/* Stil spesifikt for tittel overskrift */
 header h1 {
   font-size: 48px;
   color: #ffdf00;
@@ -94,44 +94,121 @@ input[type="text"] {
   font-size: 14px;
 }
 
-.characterCard.human { background-color: #12005c; }
-.characterCard.droid { background-color: #676565; }
-.characterCard.wookie { background-color: #3b1e00; }
-.characterCard.rodian { background-color: #5c5f2b; }
-.characterCard.hutt { background-color: #494024; }
-.characterCard.yodas-species { background-color: #254713; }
-.characterCard.trandoshan { background-color: #a25f00; }
-.characterCard.mon-calamari { background-color: #f47858; }
-.characterCard.ewok { background-color: #2e1005; }
-.characterCard.sullustan { background-color: #a9718e; }
-.characterCard.neimodian { background-color: #abad85; }
-.characterCard.gungan { background-color: #8d6a00; }
-.characterCard.toydarian { background-color: #4a696a; }
-.characterCard.dug { background-color: #6e6262; }
-.characterCard.twi-lek { background-color: #244d4b; }
-.characterCard.aleena { background-color: #3e5467; }
-.characterCard.vulptereen { background-color: #6e695e; }
-.characterCard.xexto { background-color: #69607f; }
-.characterCard.toong { background-color: #6c6e37; }
-.characterCard.cerean { background-color: #826852; }
-.characterCard.nautolan { background-color: #18614e; }
-.characterCard.zabrak { background-color: #441300; }
-.characterCard.tholothian { background-color: #6d667f; }
-.characterCard.iktotchi { background-color: #da6819; }
-.characterCard.quermian { background-color: #484c46; }
-.characterCard.kel-dor { background-color: #9e752f; }
-.characterCard.chagrian { background-color: #177ac5; }
-.characterCard.geonosian { background-color: #413920; }
-.characterCard.mirialan { background-color: #746127; }
-.characterCard.clawdite { background-color: #328a60; }
-.characterCard.besalisk { background-color: #8f6352; }
-.characterCard.kaminoan { background-color: #405b74; }
-.characterCard.skakoan { background-color: #2c7f08; }
-.characterCard.muun { background-color: #8a6f7c; }
-.characterCard.togruta { background-color: #b5730c; }
-.characterCard.kaleesh { background-color: #b0443e; }
-.characterCard.pau-an { background-color: #9a614c; }
-.characterCard.unknown { background-color: #251b39; }
+/* Styles for species-specific character cards */
+.characterCard.human {
+  background-color: #12005c;
+}
+.characterCard.droid {
+  background-color: #676565;
+}
+.characterCard.wookie {
+  background-color: #3b1e00;
+}
+.characterCard.rodian {
+  background-color: #5c5f2b;
+}
+.characterCard.hutt {
+  background-color: #494024;
+}
+.characterCard.yodas-species {
+  background-color: #254713;
+}
+.characterCard.trandoshan {
+  background-color: #a25f00;
+}
+.characterCard.mon-calamari {
+  background-color: #f47858;
+}
+.characterCard.ewok {
+  background-color: #2e1005;
+}
+.characterCard.sullustan {
+  background-color: #a9718e;
+}
+.characterCard.neimodian {
+  background-color: #abad85;
+}
+.characterCard.gungan {
+  background-color: #8d6a00;
+}
+.characterCard.toydarian {
+  background-color: #4a696a;
+}
+.characterCard.dug {
+  background-color: #6e6262;
+}
+.characterCard.twilek {
+  background-color: #244d4b;
+}
+.characterCard.aleena {
+  background-color: #3e5467;
+}
+.characterCard.vulptereen {
+  background-color: #6e695e;
+}
+.characterCard.xexto {
+  background-color: #69607f;
+}
+.characterCard.toong {
+  background-color: #6c6e37;
+}
+.characterCard.cerean {
+  background-color: #826852;
+}
+.characterCard.nautolan {
+  background-color: #18614e;
+}
+.characterCard.zabrak {
+  background-color: #441300;
+}
+.characterCard.tholothian {
+  background-color: #6d667f;
+}
+.characterCard.iktotchi {
+  background-color: #da6819;
+}
+.characterCard.quermian {
+  background-color: #484c46;
+}
+.characterCard.kel-dor {
+  background-color: #9e752f;
+}
+.characterCard.chagrian {
+  background-color: #177ac5;
+}
+.characterCard.geonosian {
+  background-color: #413920;
+}
+.characterCard.mirialan {
+  background-color: #746127;
+}
+.characterCard.clawdite {
+  background-color: #328a60;
+}
+.characterCard.besalisk {
+  background-color: #8f6352;
+}
+.characterCard.kaminoan {
+  background-color: #405b74;
+}
+.characterCard.skakoan {
+  background-color: #2c7f08;
+}
+.characterCard.muun {
+  background-color: #8a6f7c;
+}
+.characterCard.togruta {
+  background-color: #b5730c;
+}
+.characterCard.kaleesh {
+  background-color: #b0443e;
+}
+.characterCard.pau-an {
+  background-color: #9a614c;
+}
+.characterCard.unknown {
+  background-color: #251b39;
+}
 
 /* Karakter og kjøretøy kort */
 .characterCard,
@@ -149,6 +226,7 @@ input[type="text"] {
   border-radius: 10px;
   transition: 0.3s;
 }
+
 /* Egen stil for innholdet i kortene */
 .cardText {
   color: #f8f544;
@@ -156,6 +234,7 @@ input[type="text"] {
   font-size: 15px;
   line-height: 1.4;
 }
+
 .cardButtons {
   display: flex;
   justify-content: center;

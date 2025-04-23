@@ -1,5 +1,5 @@
 // Base crudcrud-url
-const API_BASE_URL = "https://crudcrud.com/api/f01958ae00fe4c82b4fc62eedcd056b4";
+const API_BASE_URL = "https://crudcrud.com/api/c60ac33f645c4b0dafa4e94a7c6fc12b";
 
 const API_URLS = {
   character: `${API_BASE_URL}/characters`,

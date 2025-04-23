@@ -185,7 +185,6 @@ function createCharacter() {
     alert("Karakter ble opprettet!");
     document.getElementById("characterForm").reset();
     console.log("Opprettet karakter:", savedCharacter);
-  
   });
 }
 
@@ -283,13 +282,10 @@ function createCharacterCard(character) {
   card.classList.add("characterCard");
 
   const speciesClass = character.species
-    .toLowerCase()
-    // Mellomrom til bindestrek
-    .replace(/\s/g, "-")
-    // Fjerner spesialtegn som ' og :
-    .replace(/[^a-z0-9-]/g, "");
-
-  card.classList.add(speciesClass);
+  .toLowerCase()
+  .replace(/\s/g, "-") // Replace spaces with hyphens
+  .replace(/'/g, ""); // Remove apostrophes
+card.classList.add(speciesClass);
 
   card.id = `card-${character._id}`;
 
@@ -326,7 +322,7 @@ function createCharacterCard(character) {
   }
 
   const buttonContainer = document.createElement("div");
-  buttonContainer.classList.add("cardButtons"); 
+  buttonContainer.classList.add("cardButtons");
 
   const editBtn = document.createElement("button");
   editBtn.textContent = "Rediger";
