@@ -108,7 +108,7 @@ async function initCharacters() {
   displayCharacters(characters);
 }
 
-// Prøver å lage karakter i crudcrud, og hvis det feiler lagres det lokalt
+// Prøver å lage karakter i crudcrud og hvis det feiler lagres det lokalt
 function safeCreateCharacter(character) {
   let characters = getFromLocalStorage("characters") || [];
 
@@ -188,7 +188,7 @@ function createCharacter() {
   });
 }
 
-// Prøver å redigere karakter i crudcrud, og hvis det feiler oppdateres kun localStorage
+// Prøver å redigere karakter i crudcrud og hvis det feiler oppdateres kun localStorage
 function safeEditCharacter(id, updatedCharacter) {
   fetch(`${API_URLS.character}/${id}`, {
     method: "PUT",
@@ -283,8 +283,8 @@ function createCharacterCard(character) {
 
   const speciesClass = character.species
   .toLowerCase()
-  .replace(/\s/g, "-") // Replace spaces with hyphens
-  .replace(/'/g, ""); // Remove apostrophes
+  .replace(/\s/g, "-")
+  .replace(/'/g, "");
 card.classList.add(speciesClass);
 
   card.id = `card-${character._id}`;
